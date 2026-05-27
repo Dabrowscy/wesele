@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Gosia & Łukasz 💍</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{height:100%;}
+body{
+  height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  background:#111;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+#app{
+  width:100%;max-width:430px;
+  height:100vh;height:100dvh;
+  background:#fff;
+  display:flex;flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
+
+/* TOP BAR */
+#topbar{
+  flex-shrink:0;
+  padding:12px 20px 10px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid #f0f0f0;
+  background:#fff;
+  position:relative;z-index:10;
+}
+.t-logo{
+  font-size:20px;font-weight:900;
+  background:linear-gradient(135deg,#fd5068,#ff9166);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.t-counter{font-size:12px;font-weight:700;color:#bbb;letter-spacing:.04em;}
+.t-av{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,#fd5068,#ff9166);
+  color:#fff;font-size:10px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* STACK */
+#stack{
+  flex:1;
+  position:relative;
+  overflow:hidden;
+}
+
+/* CARD */
+.card{
+  position:absolute;
+  top:10px;left:10px;right:10px;bottom:10px;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 2px 24px rgba(0,0,0,0.13);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  will-change:transform;
+  cursor:grab;
+}
+.card:active{cursor:grabbing;}
+
+/* CARD HEADER IMAGE AREA */
+.card-hero{
+  flex-shrink:0;
+  height:46%;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  font-size:68px;
+  overflow:hidden;
+}
+.card-hero .cbadge{
+  position:absolute;bottom:12px;left:12px;
+  background:rgba(255,255,255,0.93);
+  color:#fd5068;font-size:10px;font-weight:800;
+  letter-spacing:.07em;text-transform:uppercase;
+  padding:4px 11px;border-radius:100px;
+}
+.card-hero .clive{
+  position:absolute;top:12px;right:12px;
+  background:rgba(255,255,255,0.93);
+  color:#21c25e;font-size:10px;font-weight:800;
+  padding:4px 10px;border-radius:100px;
+  display:flex;align-items:center;gap:4px;
+}
+.ldot{width:6px;height:6px;background:#21c25e;border-radius:50%;animation:lp 1.4s ease-in-out infinite;}
+@keyframes lp{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* CARD SCROLL BODY */
+.card-body{
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:14px 16px 16px;
+}
+.card-body::-webkit-scrollbar{display:none;}
+
+.ctitle{font-size:20px;font-weight:800;color:#111;line-height:1.25;margin-bottom:3px;}
+.csub{
+  font-size:12px;font-weight:700;color:#fd5068;
+  letter-spacing:.04em;margin-bottom:10px;
+  display:flex;align-items:center;gap:5px;
+}
+.csub::before{content:'';width:4px;height:4px;background:#fd5068;border-radius:50%;display:inline-block;}
+.ctext{font-size:14px;line-height:1.65;color:#555;margin-bottom:8px;}
+.ctext b{color:#111;}
+
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.tag{background:#fff0f2;color:#fd5068;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;border:1px solid rgba(253,80,104,.18);}
+.tag.g{background:#f0fdf4;color:#16a34a;border-color:rgba(22,163,74,.18);}
+.tag.b{background:#eff6ff;color:#2563eb;border-color:rgba(37,99,235,.18);}
+.tag.y{background:#fffbeb;color:#d97706;border-color:rgba(217,119,6,.18);}
+
+/* TIMELINE */
+.tl{margin-top:10px;}
+.tl-row{display:flex;gap:10px;margin-bottom:10px;}
+.tl-l{width:46px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
+.tl-t{font-size:11px;font-weight:800;color:#fd5068;white-space:nowrap;}
+.tl-line{width:1.5px;flex:1;min-height:18px;background:linear-gradient(to bottom,#fd5068,rgba(253,80,104,.1));margin-top:3px;}
+.tl-row:last-child .tl-line{display:none;}
+.tl-n{font-size:13.5px;font-weight:800;color:#111;}
+.tl-d{font-size:12px;color:#888;line-height:1.45;margin-top:2px;}
+
+/* PLACES */
+.places{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.place{background:#fafafa;border:1px solid #f0f0f0;border-radius:12px;padding:10px;}
+.place.sp{background:#fff8f9;border-color:rgba(253,80,104,.2);}
+.pnum{font-size:10px;font-weight:800;color:#fd5068;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
+.pname{font-size:13px;font-weight:800;color:#111;line-height:1.2;margin-bottom:3px;}
+.pdesc{font-size:11.5px;color:#888;line-height:1.4;}
+
+/* UPLOAD */
+.upbox{
+  border:2px dashed rgba(253,80,104,.3);
+  border-radius:14px;padding:20px 14px;
+  text-align:center;background:#fff8f9;
+  position:relative;cursor:pointer;margin-top:10px;
+}
+.upbox input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2;}
+.up-emo{font-size:32px;margin-bottom:6px;}
+.up-title{font-size:15px;font-weight:800;color:#111;margin-bottom:3px;}
+.up-sub{font-size:12px;color:#888;}
+.btn-up{
+  display:inline-block;margin-top:12px;
+  padding:10px 24px;
+  background:linear-gradient(135deg,#fd5068,#ff9166);
+  color:#fff;font-size:13px;font-weight:800;
+  border-radius:100px;border:none;cursor:pointer;
+  position:relative;z-index:3;
+}
+.up-note{font-size:11px;color:#bbb;margin-top:8px;}
+.up-note a{color:#fd5068;text-decoration:none;font-weight:700;}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:10px;border-radius:10px;overflow:hidden;}
+.pthumb{aspect-ratio:1;background:#f5f5f5;overflow:hidden;}
+.pthumb img{width:100%;height:100%;object-fit:cover;}
+
+/* FOTO PH */
+.fotoph{background:linear-gradient(135deg,#fff0f2,#fff8f9);border:1px solid rgba(253,80,104,.15);border-radius:14px;padding:24px 16px;text-align:center;margin-top:10px;}
+.fotoph .femo{font-size:36px;margin-bottom:8px;}
+.fotoph h3{font-size:15px;font-weight:800;color:#111;margin-bottom:6px;}
+.fotoph p{font-size:12.5px;color:#888;line-height:1.6;}
+
+/* SWIPE OVERLAYS */
+.ov-like,.ov-nope{
+  position:absolute;inset:0;
+  border-radius:16px;
+  display:flex;align-items:flex-start;padding-top:28px;justify-content:center;
+  opacity:0;pointer-events:none;z-index:20;
+}
+.ov-like{background:linear-gradient(135deg,rgba(33,194,94,.55),rgba(33,194,94,0));}
+.ov-nope{background:linear-gradient(225deg,rgba(253,80,104,.55),rgba(253,80,104,0));}
+.ov-lbl{
+  font-size:34px;font-weight:900;color:#fff;
+  border:4px solid #fff;border-radius:8px;
+  padding:5px 16px;letter-spacing:.08em;
+}
+.ov-like .ov-lbl{transform:rotate(-12deg);}
+.ov-nope .ov-lbl{transform:rotate(12deg);}
+
+/* EMPTY */
+#empty{
+  display:none;
+  position:absolute;inset:10px;
+  background:#fff;border-radius:16px;
+  box-shadow:0 2px 24px rgba(0,0,0,.1);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:32px;z-index:50;
+}
+#empty .eemo{font-size:60px;margin-bottom:16px;}
+#empty h2{font-size:22px;font-weight:800;color:#111;margin-bottom:8px;}
+#empty p{font-size:14px;color:#888;line-height:1.6;margin-bottom:24px;}
+#empty .rebtn{
+  background:linear-gradient(135deg,#fd5068,#ff9166);
+  color:#fff;font-size:14px;font-weight:800;
+  border:none;border-radius:100px;padding:13px 32px;cursor:pointer;
+}
+
+/* BUTTONS */
+#actions{
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  padding:10px 20px 12px;
+  background:#fff;border-top:1px solid #f5f5f5;
+}
+.albl{font-size:10px;font-weight:800;color:#ccc;letter-spacing:.05em;}
+.abtn{border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .12s;}
+.abtn:active{transform:scale(.84);}
+.abtn-nope{width:50px;height:50px;background:#fff;box-shadow:0 2px 14px rgba(253,80,104,.25);border:1.5px solid rgba(253,80,104,.15);color:#fd5068;}
+.abtn-star{width:44px;height:44px;background:#fff;box-shadow:0 2px 14px rgba(90,130,255,.25);border:1.5px solid rgba(90,130,255,.15);color:#5a82ff;}
+.abtn-like{width:62px;height:62px;background:linear-gradient(135deg,#21c25e,#0dab52);box-shadow:0 4px 18px rgba(33,194,94,.4);color:#fff;}
+
+/* BOTTOM NAV */
+#botnav{
+  flex-shrink:0;
+  display:flex;justify-content:space-around;
+  padding:8px 0 max(8px,env(safe-area-inset-bottom));
+  border-top:1px solid #f0f0f0;background:#fff;
+}
+.bni{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 16px;cursor:pointer;}
+.bni svg{width:22px;height:22px;color:#ddd;}
+.bni.on svg{color:#fd5068;}
+.bndot{width:4px;height:4px;border-radius:50%;background:#fd5068;opacity:0;}
+.bni.on .bndot{opacity:1;}
+
+/* MATCH SCREEN */
+#match{
+  display:none;
+  position:absolute;inset:0;z-index:100;
+  background:rgba(8,8,18,.93);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:32px;
+}
+.mheart{font-size:70px;margin-bottom:16px;animation:mpop .6s ease .15s both;}
+@keyframes mpop{0%{transform:scale(.15)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+.mhead{
+  font-size:44px;font-weight:900;line-height:1;margin-bottom:10px;
+  background:linear-gradient(135deg,#fd5068,#ff9166);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.mdetail{font-size:15px;color:rgba(255,255,255,.82);font-weight:600;margin-bottom:30px;line-height:1.55;}
+.mcta{
+  background:linear-gradient(135deg,#fd5068,#ff9166);
+  color:#fff;font-size:15px;font-weight:800;
+  border:none;border-radius:100px;padding:14px 36px;cursor:pointer;
+}
+.mfn{font-size:12px;color:rgba(255,255,255,.3);margin-top:14px;}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="topbar">
+    <div class="t-logo">tinder 💘 wesele</div>
+    <div class="t-counter" id="counter">1 / 7</div>
+    <div class="t-av">G&amp;Ł</div>
+  </div>
+
+  <div id="stack">
+    <div id="empty">
+      <div class="eemo">💍</div>
+      <h2>Widzimy się na parkiecie!</h2>
+      <p>Przejrzałeś/aś wszystkie karty.<br>Cieszymy się że jesteś z nami!</p>
+      <button class="rebtn" id="rebtn">Powtórz od początku ↺</button>
+    </div>
+
+    <!-- KARTA 7 -->
+    <div class="card" id="c7">
+      <div class="card-hero" style="background:linear-gradient(135deg,#1a1a2e,#0f3460);">
+        📸
+        <div class="cbadge">Fotografia</div>
+      </div>
+      <div class="card-body">
+        <div class="ctitle">Zdjęcia od fotografa</div>
+        <div class="csub">Wkrótce się pojawią</div>
+        <div class="fotoph">
+          <div class="femo">📷</div>
+          <h3>Nasz fotograf pracuje nad każdym kadrem</h3>
+          <p>Dobre zdjęcia wymagają czasu i serca. Gdy będą gotowe, pojawią się właśnie tutaj — wróćcie za chwilę 🌿</p>
+        </div>
+        <div class="tags">
+          <span class="tag">Profesjonalna fotografia</span>
+          <span class="tag g">Wkrótce online</span>
+        </div>
+      </div>
+      <div class="ov-like"><div class="ov-lbl">LIKE</div></div>
+      <div class="ov-nope"><div class="ov-lbl">NOPE</div></div>
+    </div>
+
+    <!-- KARTA 6 -->
+    <div class="card" id="c6">
+      <div class="card-hero" style="background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffecd2);">
+        🤳
+        <div class="cbadge">Galeria gości</div>
+        <div class="clive"><span class="ldot"></span>Aktywne</div>
+      </div>
+      <div class="card-body">
+        <div class="ctitle">Podziel się swoją chwilą</div>
+        <div class="csub">Twoje zdjęcia trafiają do nas</div>
+        <p class="ctext">Sfotografuj coś wyjątkowego i prześlij nam. Razem budujemy album wspomnień tego dnia! 💫</p>
+        <div class="upbox" id="upzone">
+          <input type="file" id="fileinput" accept="image/*" multiple>
+          <div class="up-emo">📤</div>
+          <div class="up-title">Dodaj swoje zdjęcia</div>
+          <div class="up-sub">Podziel się wspomnieniami</div>
+          <button class="btn-up" id="upbtn" type="button">Wybierz zdjęcia</button>
+          <p class="up-note">Trafiają do naszego <a href="WKLEJ_LINK_GOOGLE_DRIVE" target="_blank">Google Drive →</a></p>
+        </div>
+        <div class="pgrid" id="pgrid"></div>
+      </div>
+      <div class="ov-like"><div class="ov-lbl">LIKE</div></div>
+      <div class="ov-nope"><div class="ov-lbl">NOPE</div></div>
+    </div>
+
+    <!-- KARTA 5 -->
+    <div class="card" id="c5">
+      <div class="card-hero" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">
+        🌸
+        <div class="cbadge">Miejsca 2/2</div>
+      </div>
+      <div class="card-body">
+        <div class="ctitle">Stolik, kawiarnia & pamięć</div>
+        <div class="csub">Jeszcze więcej do odkrycia</div>
+        <div class="places">
+          <div class="place">
+            <div class="pnum">05 — Sala</div>
+            <div class="pname">Stolik gości</div>
+            <div class="pdesc">Tu znajdziesz swoje miejsce — zasiądź i daj się ponieść tej chwili.</div>
+          </div>
+          <div class="place sp">
+            <div class="pnum" style="color:#e879a0">✦ Z sercem</div>
+            <div class="pname" style="color:#e879a0">Miejsce pamięci</div>
+            <div class="pdesc">Stolik dla tych, których już nie ma wśród nas — ale których nosimy w sercu każdego dnia.</div>
+          </div>
+        </div>
+        <div class="tags" style="margin-top:12px">
+          <span class="tag y">5 miejsc na sali</span>
+          <span class="tag b">Mapa w programie</span>
+        </div>
+      </div>
+      <div class="ov-like"><div class="ov-lbl">LIKE</div></div>
+      <div class="ov-nope"><div class="ov-lbl">NOPE</div></div>
+    </div>
+
+    <!-- KARTA 4 -->
+    <div class="card" id="c4">
+      <div class="card-hero" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">
+        🗺️
+        <div class="cbadge">Mapa wesela</div>
+      </div>
+      <div class="card-body">
+        <div class="ctitle">Miejsca, które warto odkryć</div>
+        <div class="csub">Orientuj się na sali!</div>
+        <div class="places">
+          <div class="place">
+            <div class="pnum">01 — Ogródek</div>
+            <div class="pname">Shisha</div>
+            <div class="pdesc">Na świeżym powietrzu, z dymkiem i dobrą rozmową.</div>
+          </div>
+          <div class="place">
+            <div class="pnum">02 — Korytarz</div>
+            <div class="pname">Księga gości</div>
+            <div class="pdesc">Czeka na Twoje słowa przy wejściu.</div>
+          </div>
+          <div class="place">
+            <div class="pnum">03 — Przy parze</div>
+            <div class="pname">Wiejski stół</div>
+            <div class="pdesc">Sery, wędliny i przetwory tuż przy Was.</div>
+          </div>
+          <div class="place">
+            <div class="pnum">04 — Parter</div>
+            <div class="pname">Salka kawiarnia</div>
+            <div class="pdesc">Kawa i cisza dla tych, co wolą spokój od głośnej muzyki.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ov-like"><div class="ov-lbl">LIKE</div></div>
+      <div class="ov-nope"><div class="ov-lbl">NOPE</div></div>
+    </div>
+
+    <!-- KARTA 3 -->
+    <div class="card" id="c3">
+      <div class="card-hero" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+        🎉
+        <div class="cbadge">Plan dnia</div>
+      </div>
+      <div class="card-body">
+        <div class="ctitle">Agenda wesela</div>
+        <div class="csub">20 · 06 · 2026</div>
+        <div class="tl">
+          <div class="tl-row">
+            <div class="tl-l"><div class="tl-t">15:00</div><div class="tl-line"></div></div>
+            <div><div class="tl-n">Ceremonia ślubna</div><div class="tl-d">Oficjalny początek naszej wspólnej historii</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-l"><div class="tl-t">17:00</div><div class="tl-line"></div></div>
+            <div><div class="tl-n">Powitanie gości</div><div class="tl-d">Aperitivo, muzyka i pierwsze toasty 🥂</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-l"><div class="tl-t">19:00</div><div class="tl-line"></div></div>
+            <div><div class="tl-n">Kolacja & tańce</div><div class="tl-d">Uczta, muzyka na żywo i parkiet otwarty całą noc</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-l"><div class="tl-t">21:00</div><div class="tl-line"></div></div>
+            <div><div class="tl-n">Tort weselny 🎂</div><div class="tl-d">Słodki moment — trzeba uwiecznić na zdjęciu!</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-l"><div class="tl-t">do rana</div></div>
+            <div><div class="tl-n">Zabawa trwa! ✨</div><div class="tl-d">Weselna noc jest tylko jedna</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="ov-like"><div class="ov-lbl">LIKE</div></div>
+      <div class="ov-nope"><div class="ov-lbl">NOPE</div></div>
+    </div>
+
+    <!-- KARTA 2 -->
+    <div class="card" id="c2">
+      <div class="card-hero" style="background:linear-gradient(135deg,#fd5068,#e8508a,#c44da8);">
+        💘
+        <div class="cbadge">Nasza historia</div>
+        <div class="clive" style="background:rgba(0,0,0,.45);color:#fff;">Tinder match ✓</div>
+      </div>
+      <div class="card-body">
+        <div class="ctitle">Zaczęło się od swipe'a</div>
+        <div class="csub">Poznaliśmy się na Tinderze</div>
+        <p class="ctext">W pewne lipcowe popołudnie żadne z nas nie planowało niczego wyjątkowego. Przypadek albo los — do dziś spieramy się, jak to nazwać.</p>
+        <p class="ctext">Od tamtej chwili minęły lata pełne śmiechu, podróży i odkrywanych razem smaków życia. Dziś świętujemy z Wami — <b>ludźmi, których kochamy najbardziej.</b></p>
+        <div class="tags">
+          <span class="tag">Tinder match 💘</span>
+          <span class="tag g">Ślub 2026</span>
+          <span class="tag b">Na zawsze ♾️</span>
+        </div>
+      </div>
+      <div class="ov-like"><div class="ov-lbl">LIKE</div></div>
+      <div class="ov-nope"><div class="ov-lbl">NOPE</div></div>
+    </div>
+
+    <!-- KARTA 1 (wierzchnia) -->
+    <div class="card" id="c1">
+      <div class="card-hero" style="background:linear-gradient(135deg,#fd5068,#e8508a,#8b5cf6);">
+        <span id="ringani" style="font-size:72px;display:inline-block;">💍</span>
+        <div class="cbadge">Zaproszenie</div>
+        <div class="clive"><span class="ldot"></span>20.06.2026</div>
+      </div>
+      <div class="card-body">
+        <div class="ctitle">Gosia & Łukasz</div>
+        <div class="csub">Powiedzieliśmy sobie TAK 💍</div>
+        <p class="ctext">Zaczęło się od jednego swipe'a — dziś jesteśmy tu razem, żeby świętować miłość razem z Wami!</p>
+        <p class="ctext">Swipuj w prawo przez kolejne karty, żeby dowiedzieć się wszystkiego o dzisiejszym dniu ❤️</p>
+        <div class="tags">
+          <span class="tag">Swipuj w prawo →</span>
+          <span class="tag g">7 kart</span>
+          <span class="tag y">20 VI 2026</span>
+        </div>
+      </div>
+      <div class="ov-like"><div class="ov-lbl">LIKE</div></div>
+      <div class="ov-nope"><div class="ov-lbl">NOPE</div></div>
+    </div>
+
+  </div><!-- /stack -->
+
+  <div id="actions">
+    <span class="albl">NOPE</span>
+    <button class="abtn abtn-nope" id="btnNope">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="abtn abtn-star" id="btnStar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </button>
+    <button class="abtn abtn-like" id="btnLike">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </button>
+    <span class="albl">LIKE</span>
+  </div>
+
+  <div id="botnav">
+    <div class="bni"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><div class="bndot"></div></div>
+    <div class="bni on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><div class="bndot"></div></div>
+    <div class="bni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div class="bndot"></div></div>
+    <div class="bni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="bndot"></div></div>
+  </div>
+
+  <div id="match">
+    <div class="mheart">💘</div>
+    <div class="mhead">IT'S A MATCH!</div>
+    <div class="mdetail">Gosia i Łukasz poznali się właśnie tu — na Tinderze.<br>Dziś biorą ślub. Cieszą się, że jesteś z nimi! 🥂</div>
+    <button class="mcta" id="matchcta">Świetnie! Swipuj dalej →</button>
+    <p class="mfn">Od jednego swipe'a do... tego dnia 💍</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var TOTAL = 7;
+  var cur = 1;         // indeks aktualnie wierzchniej karty
+  var busy = false;    // czy trwa animacja (blokuje nowe gesty)
+  var matchShown = false;
+
+  /* ---------- helpers ---------- */
+  function el(id){ return document.getElementById(id); }
+  function card(n){ return el('c'+n); }
+
+  function setCounter(){
+    el('counter').textContent = cur + ' / ' + TOTAL;
+  }
+
+  /* Ustawia wizualny stos (przeskalowanie kart pod spodem) */
+  function restack(){
+    for(var i=1; i<=TOTAL; i++){
+      var c = card(i);
+      if(!c) continue;
+      var off = i - cur;          // 0 = wierzch, 1 = pod spodem, itd.
+      /* reset animacji */
+      c.style.transition = 'transform .28s ease';
+      if(off < 0){
+        /* już odrzucona – chowamy */
+        c.style.zIndex = '0';
+        c.style.opacity = '0';
+        c.style.pointerEvents = 'none';
+      } else if(off === 0){
+        c.style.zIndex = '10';
+        c.style.transform = 'scale(1) translateY(0)';
+        c.style.opacity = '1';
+        c.style.pointerEvents = 'auto';
+      } else if(off === 1){
+        c.style.zIndex = '9';
+        c.style.transform = 'scale(0.96) translateY(8px)';
+        c.style.opacity = '1';
+        c.style.pointerEvents = 'none';
+      } else if(off === 2){
+        c.style.zIndex = '8';
+        c.style.transform = 'scale(0.92) translateY(16px)';
+        c.style.opacity = '1';
+        c.style.pointerEvents = 'none';
+      } else {
+        c.style.zIndex = '7';
+        c.style.transform = 'scale(0.88) translateY(24px)';
+        c.style.opacity = '0';
+        c.style.pointerEvents = 'none';
+      }
+    }
+  }
+
+  /* Odrzuca wierzchnią kartę w podanym kierunku */
+  function dismiss(dir){
+    if(busy) return;
+
+    /* Specjalny przypadek: pierwsza karta w prawo → match screen */
+    if(dir === 'right' && cur === 1 && !matchShown){
+      matchShown = true;
+      flyOut(card(1), 'right', function(){
+        el('match').style.display = 'flex';
+      });
+      return;
+    }
+
+    busy = true;
+    flyOut(card(cur), dir, function(){
+      cur++;
+      busy = false;
+      if(cur > TOTAL){
+        el('empty').style.display = 'flex';
+      } else {
+        setCounter();
+        restack();
+        attachDrag(card(cur));
+      }
+    });
+  }
+
+  function flyOut(c, dir, cb){
+    var tx = dir === 'right' ? window.innerWidth * 1.5 : -(window.innerWidth * 1.5);
+    var rot = dir === 'right' ? 30 : -30;
+    c.style.transition = 'transform .38s cubic-bezier(.4,0,.2,1), opacity .38s';
+    c.style.transform = 'translateX('+tx+'px) rotate('+rot+'deg)';
+    c.style.opacity = '0';
+    c.style.pointerEvents = 'none';
+    setTimeout(cb, 390);
+  }
+
+  /* ---------- drag ---------- */
+  function attachDrag(c){
+    if(!c || c._dragAttached) return;
+    c._dragAttached = true;
+
+    var startX=0, startY=0, curX=0, dragging=false, scrolling=false;
+
+    function getPoint(e){
+      return e.touches ? e.touches[0] : e;
+    }
+
+    function onStart(e){
+      /* nie przeszkadzaj guzikom i inputom */
+      var t = e.target;
+      while(t && t !== c){
+        if(t.tagName === 'BUTTON' || t.tagName === 'INPUT' || t.tagName === 'A' || t.tagName === 'LABEL') return;
+        t = t.parentNode;
+      }
+      var p = getPoint(e);
+      startX = p.clientX; startY = p.clientY; curX = 0;
+      dragging = true; scrolling = false;
+      c.style.transition = 'none';
+    }
+
+    function onMove(e){
+      if(!dragging) return;
+      var p = getPoint(e);
+      var dx = p.clientX - startX;
+      var dy = p.clientY - startY;
+
+      /* jeśli scroll pionowy – ustępujemy scrollowi */
+      if(!scrolling && Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8){
+        scrolling = true;
+      }
+      if(scrolling) return;
+
+      /* blokujemy domyślny scroll poziomy przeglądarki */
+      if(e.cancelable) e.preventDefault();
+
+      curX = dx;
+      var rot = dx * 0.06;
+      c.style.transform = 'translateX('+dx+'px) rotate('+rot+'deg)';
+
+      /* nakładki */
+      var likeOv = c.querySelector('.ov-like');
+      var nopeOv = c.querySelector('.ov-nope');
+      var ratio = Math.min(Math.abs(dx)/100, 1);
+      if(dx > 0){ likeOv.style.opacity=ratio; nopeOv.style.opacity=0; }
+      else       { nopeOv.style.opacity=ratio; likeOv.style.opacity=0; }
+    }
+
+    function onEnd(e){
+      if(!dragging) return;
+      dragging = false;
+
+      /* reset nakładek */
+      c.querySelectorAll('.ov-like,.ov-nope').forEach(function(o){ o.style.opacity=0; });
+
+      if(scrolling){ scrolling=false; return; }
+
+      if(Math.abs(curX) > 80){
+        dismiss(curX > 0 ? 'right' : 'left');
+      } else {
+        /* cofnij kartę na miejsce */
+        c.style.transition = 'transform .3s ease';
+        c.style.transform = 'scale(1) translateY(0)';
+      }
+    }
+
+    c.addEventListener('touchstart', onStart, {passive:true});
+    c.addEventListener('touchmove',  onMove,  {passive:false});
+    c.addEventListener('touchend',   onEnd,   {passive:true});
+    c.addEventListener('mousedown',  onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup',   onEnd);
+  }
+
+  /* ---------- buttons ---------- */
+  el('btnLike').addEventListener('click', function(){ dismiss('right'); });
+  el('btnNope').addEventListener('click', function(){ dismiss('left'); });
+  el('btnStar').addEventListener('click', function(){
+    if(busy) return;
+    busy = true;
+    var c = card(cur);
+    c.style.transition = 'transform .38s ease, opacity .38s';
+    c.style.transform = 'translateY(-120%) scale(1.05)';
+    c.style.opacity = '0';
+    setTimeout(function(){
+      cur++; busy = false;
+      if(cur>TOTAL){ el('empty').style.display='flex'; }
+      else { setCounter(); restack(); attachDrag(card(cur)); }
+    }, 390);
+  });
+
+  el('matchcta').addEventListener('click', function(){
+    el('match').style.display = 'none';
+    cur++;
+    if(cur>TOTAL){ el('empty').style.display='flex'; }
+    else { setCounter(); restack(); attachDrag(card(cur)); }
+  });
+
+  el('rebtn').addEventListener('click', function(){
+    cur=1; matchShown=false; busy=false;
+    el('empty').style.display='none';
+    /* zresetuj wszystkie karty */
+    for(var i=1;i<=TOTAL;i++){
+      var c=card(i);
+      if(!c) continue;
+      c._dragAttached=false;
+      c.style.transition='none';
+      c.style.transform='';
+      c.style.opacity='';
+      c.style.pointerEvents='';
+    }
+    setCounter(); restack(); attachDrag(card(1));
+  });
+
+  /* upload */
+  el('upbtn').addEventListener('click', function(e){ e.stopPropagation(); el('fileinput').click(); });
+  el('fileinput').addEventListener('change', function(e){
+    Array.from(e.target.files).forEach(function(f){
+      var r=new FileReader();
+      r.onload=function(ev){
+        var d=document.createElement('div'); d.className='pthumb';
+        var img=document.createElement('img'); img.src=ev.target.result; img.alt='';
+        d.appendChild(img); el('pgrid').appendChild(d);
+      };
+      r.readAsDataURL(f);
+    });
+  });
+
+  /* ring float animation */
+  var ring=el('ringani'), phase=0;
+  setInterval(function(){
+    phase+=0.05;
+    ring.style.transform='translateY('+(Math.sin(phase)*10)+'px)';
+  },30);
+
+  /* INIT */
+  setCounter();
+  restack();
+  attachDrag(card(1));
+
+})();
+</script>
+</body>
+</html>
