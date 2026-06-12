@@ -302,7 +302,7 @@ body{
       </div>
       <div class="card-body">
         <div class="ctitle">Podziel się swoją chwilą</div>
-        <div class="csub">Twoje zdjęcia i filmy trafiają do nas</div>
+        <div class="csub">Twoje zdjęcia trafiają do nas</div>
         <p class="ctext">Uchwyć coś wyjątkowego i prześlij nam. Razem budujemy album wspomnień tego dnia! 💫</p>
         <div class="upbox" id="upzone">
           <input type="file" id="fileinput" accept="image/*,video/*" multiple>
@@ -694,7 +694,7 @@ Od pytań do spotkania w IKEA. Każde z nas szukało kanapy dla siebie. Razem od
 
     function showSizeError(name, sizeMB){
       document.getElementById('vsize-msg').textContent=
-        '\u201e'+name+'\u201d ma '+sizeMB+' MB. Filmy mog\u0105 wa\u017cy\u0107 maksymalnie 100\u00a0MB. Przytnij film lub wybierz kr\u00f3tszy klip i spr\u00f3buj jeszcze raz.';
+        '\u201e'+name+'\u201d ma '+sizeMB+' MB. Filmy mog\u0105 wa\u017cy\u0107 maksymalnie 50\u00a0MB. Przytnij film lub wybierz kr\u00f3tszy klip i spr\u00f3buj jeszcze raz.';
       overlay.style.display='flex';
     }
     document.getElementById('vsize-ok').addEventListener('click',function(){overlay.style.display='none';});
@@ -704,7 +704,7 @@ Od pytań do spotkania w IKEA. Każde z nas szukało kanapy dla siebie. Razem od
 
   /* upload */
   var DRIVE_URL = 'https://script.google.com/macros/s/AKfycbxydjsccmHSzz1aiF-0Rp9CJSwMlhSNaBB9CHieAVj1CvuN80LD7YdwWrvmoqVKRYJ-Cw/exec';
-  var VIDEO_MAX_BYTES = 100 * 1024 * 1024; /* 100 MB */
+  var VIDEO_MAX_BYTES = 50 * 1024 * 1024; /* 50 MB */
 
   el('upbtn').addEventListener('click', function(e){ e.stopPropagation(); el('fileinput').click(); });
   el('fileinput').addEventListener('change', function(e){
