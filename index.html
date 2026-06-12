@@ -359,24 +359,24 @@ body{
         <div class="csub">Orientuj się na sali!</div>
         <div class="places">
           <div class="place">
-            <div class="pnum">01 — Ogródek</div>
+            <div class="pnum">01 — Ogródek (po 21:00)</div>
             <div class="pname">Shisha</div>
-            <div class="pdesc">Na świeżym powietrzu, z dymkiem i dobrą rozmową.</div>
+            <div class="pdesc">Na świeżym powietrzu, z buszkiem i dobrą rozmową.</div>
           </div>
           <div class="place">
             <div class="pnum">02 — Korytarz</div>
             <div class="pname">Księga gości</div>
-            <div class="pdesc">Czeka na Twoje słowa przy wejściu.</div>
+            <div class="pdesc">Czeka przy wejściu na Twoje słowa.</div>
           </div>
           <div class="place">
-            <div class="pnum">03 — Przy parze</div>
+            <div class="pnum">03 — Przy parze młodej</div>
             <div class="pname">Wiejski stół</div>
-            <div class="pdesc">Sery, wędliny i przetwory tuż przy Was.</div>
+            <div class="pdesc">Wędliny, smalczyk i regionalne specjały tylko dla Was.</div>
           </div>
           <div class="place">
             <div class="pnum">04 — Parter</div>
             <div class="pname">Salka kawiarnia</div>
-            <div class="pdesc">Kawa i cisza dla tych, co wolą spokój od głośnej muzyki.</div>
+            <div class="pdesc">Dla miłośników kawy, ciasta i spokojnych rozmów.</div>
           </div>
         </div>
       </div>
@@ -428,13 +428,16 @@ body{
         <div class="clive" style="background:rgba(0,0,0,.45);color:#fff;">Tinder match ✓</div>
       </div>
       <div class="card-body">
-        <div class="ctitle">Zaczęło się od swipe'a</div>
-        <div class="csub">Poznaliśmy się na Tinderze</div>
-        <p class="ctext">W pewne lipcowe popołudnie żadne z nas nie planowało niczego wyjątkowego. Przypadek albo los — do dziś spieramy się, jak to nazwać.</p>
-        <p class="ctext">Od tamtej chwili minęły lata pełne śmiechu, podróży i odkrywanych razem smaków życia. Dziś świętujemy z Wami — <b>ludźmi, których kochamy najbardziej.</b></p>
+        <div class="ctitle">Od IKEA do ołtarza</div>
+        <div class="csub">...a zaczęło się od pączków!</div>
+        <p class="ctext">Poznaliśmy się w Tłusty Czwartek</p>
+- Ile zjadłaś pączków? :D</p>
+- Nie za bardzo lubię pączki, ale zjadłam faworka!</p>
+Od pytań do spotkania w IKEA. Każde z nas szukało kanapy dla siebie. Razem odwiedzaliśmy wszystkie sklepy meblowe, bo tylko one były wtedy otwarte. </p>
+        <p class="ctext"></p>Od tamtej chwili minęło 5 lat pełnych śmiechu, podróży i odkrywania razem życia. Dziś świętujemy z Wami - <b>ludźmi, których cenimy najbardziej.</b></p>
         <div class="tags">
           <span class="tag">Tinder match 💘</span>
-          <span class="tag g">Ślub 2026</span>
+          <span class="tag g">IKEA</span>
           <span class="tag b">Na zawsze ♾️</span>
         </div>
       </div>
@@ -452,8 +455,8 @@ body{
       <div class="card-body">
         <div class="ctitle">Gosia & Łukasz</div>
         <div class="csub">Powiedzieliśmy sobie TAK 💍</div>
-        <p class="ctext">Zaczęło się od jednego swipe'a — dziś jesteśmy tu razem, żeby świętować miłość razem z Wami!</p>
-        <p class="ctext">Swipuj w prawo przez kolejne karty, żeby dowiedzieć się wszystkiego o dzisiejszym dniu ❤️</p>
+        <p class="ctext">Zaczęło się od jednego przeciągnięcia w prawo - dziś jesteśmy tu razem, żeby świętować miłość razem z Wami!</p>
+        <p class="ctext">Swipuj przez kolejne karty, żeby dowiedzieć się wszystkiego o dzisiejszym dniu ❤️</p>
         <div class="tags">
           <span class="tag">Swipuj w prawo →</span>
           <span class="tag g">7 kart</span>
@@ -490,7 +493,7 @@ body{
   <div id="match">
     <div class="mheart">💘</div>
     <div class="mhead">IT'S A MATCH!</div>
-    <div class="mdetail">Gosia i Łukasz poznali się właśnie tu — na Tinderze.<br>Dziś biorą ślub. Cieszą się, że jesteś z nimi! 🥂</div>
+    <div class="mdetail">Gosia i Łukasz poznali się właśnie tu - na Tinderze.<br>Dziś biorą ślub. Cieszą się, że jesteś z nimi! 🥂</div>
     <button class="mcta" id="matchcta">Świetnie! Swipuj dalej →</button>
     <p class="mfn">Od jednego swipe'a do... tego dnia 💍</p>
   </div>
@@ -704,6 +707,7 @@ body{
   });
 
   /* upload */
+  var DRIVE_URL = 'https://script.google.com/macros/s/AKfycbxydjsccmHSzz1aiF-0Rp9CJSwMlhSNaBB9CHieAVj1CvuN80LD7YdwWrvmoqVKRYJ-Cw/exec';
   el('upbtn').addEventListener('click', function(e){ e.stopPropagation(); el('fileinput').click(); });
   el('fileinput').addEventListener('change', function(e){
     Array.from(e.target.files).forEach(function(f){
@@ -712,6 +716,10 @@ body{
         var d=document.createElement('div'); d.className='pthumb';
         var img=document.createElement('img'); img.src=ev.target.result; img.alt='';
         d.appendChild(img); el('pgrid').appendChild(d);
+        fetch(DRIVE_URL, {
+          method: 'POST',
+          body: JSON.stringify({ file: ev.target.result.split(',')[1], mimeType: f.type, name: f.name })
+        });
       };
       r.readAsDataURL(f);
     });
