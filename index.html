@@ -159,7 +159,7 @@ body{
 .up-note a{color:#fd5068;text-decoration:none;font-weight:700;}
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:10px;border-radius:10px;overflow:hidden;}
 .pthumb{aspect-ratio:1;background:#f5f5f5;overflow:hidden;}
-.pthumb img{width:100%;height:100%;object-fit:cover;}.pthumb video{width:100%;height:100%;object-fit:cover;}
+.pthumb img{width:100%;height:100%;object-fit:cover;}.pthumb video{width:100%;height:100%;object-fit:cover;pointer-events:none;}
 
 /* FOTO PH */
 .fotoph{background:linear-gradient(135deg,#fff0f2,#fff8f9);border:1px solid rgba(253,80,104,.15);border-radius:14px;padding:24px 16px;text-align:center;margin-top:10px;}
@@ -676,18 +676,54 @@ Od pytań do spotkania w IKEA. Każde z nas szukało kanapy dla siebie. Razem od
     setCounter(); restack(); attachDrag(card(1));
   });
 
+  /* ── video-size modal ── */
+  (function(){
+    var overlay=document.createElement('div');
+    overlay.id='vsize-overlay';
+    overlay.style.cssText='display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);align-items:center;justify-content:center;';
+    overlay.innerHTML=
+      '<div style="background:#fff;border-radius:20px;padding:32px 28px 24px;max-width:320px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.18);position:relative;">'
+      +'<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#fd5068,#ff9166);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">'
+      +'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+      +'</div>'
+      +'<p style="font-weight:800;font-size:16px;color:#1a1a2e;margin-bottom:8px;" id="vsize-title">Film jest za duży</p>'
+      +'<p style="font-size:13px;color:#666;line-height:1.6;margin-bottom:22px;" id="vsize-msg"></p>'
+      +'<button id="vsize-ok" style="background:linear-gradient(135deg,#fd5068,#ff9166);color:#fff;border:none;border-radius:100px;padding:12px 32px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Rozumiem</button>'
+      +'</div>';
+    document.body.appendChild(overlay);
+
+    function showSizeError(name, sizeMB){
+      document.getElementById('vsize-msg').textContent=
+        '\u201e'+name+'\u201d ma '+sizeMB+' MB. Filmy mog\u0105 wa\u017cy\u0107 maksymalnie 50\u00a0MB. Przytnij film lub wybierz kr\u00f3tszy klip i spr\u00f3buj jeszcze raz.';
+      overlay.style.display='flex';
+    }
+    document.getElementById('vsize-ok').addEventListener('click',function(){overlay.style.display='none';});
+    overlay.addEventListener('click',function(e){if(e.target===overlay)overlay.style.display='none';});
+    window._showVideoSizeError=showSizeError;
+  })();
+
   /* upload */
   var DRIVE_URL = 'https://script.google.com/macros/s/AKfycbxydjsccmHSzz1aiF-0Rp9CJSwMlhSNaBB9CHieAVj1CvuN80LD7YdwWrvmoqVKRYJ-Cw/exec';
+  var VIDEO_MAX_BYTES = 50 * 1024 * 1024; /* 50 MB */
+
   el('upbtn').addEventListener('click', function(e){ e.stopPropagation(); el('fileinput').click(); });
   el('fileinput').addEventListener('change', function(e){
     Array.from(e.target.files).forEach(function(f){
+
+      /* blokada rozmiaru dla filmów */
+      if(f.type.startsWith('video/') && f.size > VIDEO_MAX_BYTES){
+        var mb=(f.size/1024/1024).toFixed(1);
+        window._showVideoSizeError(f.name, mb);
+        return; /* pomiń ten plik */
+      }
+
       var r=new FileReader();
       r.onload=function(ev){
         var d=document.createElement('div'); d.className='pthumb';
         if(f.type.startsWith('video/')){
           var vid=document.createElement('video');
-          vid.src=ev.target.result; vid.muted=true; vid.playsInline=true;
-          vid.controls=true;
+          vid.src=ev.target.result;
+          vid.muted=true; vid.playsInline=true; vid.preload='metadata';
           d.appendChild(vid);
         } else {
           var img=document.createElement('img'); img.src=ev.target.result; img.alt='';
