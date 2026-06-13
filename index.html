@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -70,7 +69,7 @@ body{
 /* CARD HEADER IMAGE AREA */
 .card-hero{
   flex-shrink:0;
-  height:46%;
+  height:40%;
   position:relative;
   display:flex;align-items:center;justify-content:center;
   font-size:68px;
@@ -142,9 +141,9 @@ body{
   border:2px dashed rgba(253,80,104,.3);
   border-radius:14px;padding:20px 14px;
   text-align:center;background:#fff8f9;
-  position:relative;cursor:pointer;margin-top:10px;
+  position:relative;margin-top:10px;
 }
-.upbox input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2;}
+.upbox input{display:none;}
 .up-emo{font-size:32px;margin-bottom:6px;}
 .up-title{font-size:15px;font-weight:800;color:#111;margin-bottom:3px;}
 .up-sub{font-size:12px;color:#888;}
@@ -252,6 +251,9 @@ body{
   border:none;border-radius:100px;padding:14px 36px;cursor:pointer;
 }
 .mfn{font-size:12px;color:rgba(255,255,255,.3);margin-top:14px;}
+
+.hemo{display:inline-block;animation:heroFloat 3s ease-in-out infinite;}
+@keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 </style>
 </head>
 <body>
@@ -274,7 +276,7 @@ body{
     <!-- KARTA 7 -->
     <div class="card" id="c6">
       <div class="card-hero" style="background:linear-gradient(135deg,#1a1a2e,#0f3460);">
-        📸
+        <span class="hemo">📸</span>
         <div class="cbadge">Fotografia</div>
       </div>
       <div class="card-body">
@@ -297,7 +299,7 @@ body{
     <!-- KARTA 6 -->
     <div class="card" id="c5">
       <div class="card-hero" style="background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffecd2);">
-        🤳
+        <span class="hemo">🤳</span>
         <div class="cbadge">Galeria gości</div>
         <div class="clive"><span class="ldot"></span>Aktywne</div>
       </div>
@@ -311,7 +313,7 @@ body{
           <div class="up-title">Dodaj swoje zdjęcia i filmy</div>
           <div class="up-sub">Podziel się wspomnieniami</div>
           <button class="btn-up" id="upbtn" type="button">Wybierz zdjęcia</button>
-          <p class="up-note">Trafiają do naszego <a href="WKLEJ_LINK_GOOGLE_DRIVE" target="_blank">Google Drive →</a></p>
+          <p class="up-note">Trafiają do naszego <a href="https://drive.google.com/drive/folders/1M--C9TyhDGc7lpq6dXNvR2suUlXSDgk1?usp=drive_link" target="_blank" rel="noopener">Google Drive →</a></p>
         </div>
         <div class="pgrid" id="pgrid"></div>
       </div>
@@ -322,7 +324,7 @@ body{
     <!-- KARTA 4 -->
     <div class="card" id="c4">
       <div class="card-hero" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">
-        🗺️
+        <span class="hemo">🗺️</span>
         <div class="cbadge">Mapa wesela</div>
       </div>
       <div class="card-body">
@@ -330,22 +332,22 @@ body{
         <div class="csub">Orientuj się na sali!</div>
         <div class="places">
           <div class="place">
-            <div class="pnum">01 — Ogródek (po 21:00)</div>
+            <div class="pnum">Ogródek (po 21:00)</div>
             <div class="pname">Shisha</div>
             <div class="pdesc">Na świeżym powietrzu, z buszkiem i dobrą rozmową.</div>
           </div>
           <div class="place">
-            <div class="pnum">02 — Korytarz</div>
+            <div class="pnum">Korytarz</div>
             <div class="pname">Księga gości</div>
             <div class="pdesc">Czeka przy wejściu na Twoje słowa.</div>
           </div>
           <div class="place">
-            <div class="pnum">03 — Przy parze młodej</div>
+            <div class="pnum">Przy parze młodej</div>
             <div class="pname">Wiejski stół</div>
             <div class="pdesc">Wędliny, smalczyk i regionalne specjały tylko dla Was.</div>
           </div>
           <div class="place">
-            <div class="pnum">04 — Parter</div>
+            <div class="pnum">Parter</div>
             <div class="pname">Salka kawiarnia</div>
             <div class="pdesc">Dla miłośników kawy, ciasta i spokojnych rozmów.</div>
           </div>
@@ -358,7 +360,7 @@ body{
     <!-- KARTA 3 -->
     <div class="card" id="c3">
       <div class="card-hero" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
-        🎉
+        <span class="hemo">🎉</span>
         <div class="cbadge">Plan dnia</div>
       </div>
       <div class="card-body">
@@ -394,7 +396,7 @@ body{
     <!-- KARTA 2 -->
     <div class="card" id="c2">
       <div class="card-hero" style="background:linear-gradient(135deg,#fd5068,#e8508a,#c44da8);">
-        💘
+        <span class="hemo">💘</span>
         <div class="cbadge">Nasza historia</div>
         <div class="clive" style="background:rgba(0,0,0,.45);color:#fff;">Tinder match ✓</div>
       </div>
@@ -419,7 +421,7 @@ Od pytań do spotkania w IKEA. Każde z nas szukało kanapy dla siebie. Razem od
     <!-- KARTA 1 (wierzchnia) -->
     <div class="card" id="c1">
       <div class="card-hero" style="background:linear-gradient(135deg,#fd5068,#e8508a,#8b5cf6);">
-        <span id="ringani" style="font-size:72px;display:inline-block;">💍</span>
+        <span id="ringani" class="hemo" style="display:inline-block;">💍</span>
         <div class="cbadge">Zaproszenie</div>
         <div class="clive"><span class="ldot"></span>20.06.2026</div>
       </div>
@@ -740,12 +742,7 @@ Od pytań do spotkania w IKEA. Każde z nas szukało kanapy dla siebie. Razem od
     });
   });
 
-  /* ring float animation */
-  var ring=el('ringani'), phase=0;
-  setInterval(function(){
-    phase+=0.05;
-    ring.style.transform='translateY('+(Math.sin(phase)*10)+'px)';
-  },30);
+  /* ring float animation – handled by CSS .hemo */
 
   /* INIT */
   // Przy pierwszej wizycie startujemy od karty 1 (zaproszenie).
