@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -747,9 +748,15 @@ Od pytań do spotkania w IKEA. Każde z nas szukało kanapy dla siebie. Razem od
   },30);
 
   /* INIT */
+  // Przy pierwszej wizycie startujemy od karty 1 (zaproszenie).
+  // Przy każdej kolejnej wizycie startujemy od karty 5 (upload zdjęć).
+  var UPLOAD_CARD = 5;
+  var isReturn = localStorage.getItem('gw_visited') === '1';
+  localStorage.setItem('gw_visited', '1');
+  if (isReturn) { cur = UPLOAD_CARD; }
   setCounter();
   restack();
-  attachDrag(card(1));
+  attachDrag(card(cur));
 
 })();
 </script>
